@@ -25,19 +25,52 @@
             <div class="friends_header">
               친구 1
             </div>
-            <div class="friend_profile">
+            <div class="friend_profile" @click="openSheet">
               <div class="friend_avatar" />
               <div class="friend_info">
                 <div class="friend_name">
                   고양휘
                 </div>
                 <div class="friend_status">
-                  Click me to begin!
+                  클릭해서 시작하세요!
                 </div>
               </div>
             </div>
             <div class="footer">
-              CS372 Team 10
+              CS372 Team 11
+            </div>
+            <div class="sheet_profile" v-bind:class="{ activated: open }">
+              <div class="profile_close">
+                <v-btn icon color="white" @click="closeSheet">
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </div>
+              <div class="profile_avatar" />
+
+              <div class="profile_name">
+                고양휘
+              </div>
+              <div class="profile_status">
+                <v-text-field
+                  v-model="consonants"
+                  class="profile_status"
+                  dark
+                  color="white"
+                  dense
+                  counter
+                  maxlength="90"
+                  placeholder="초성을 입력하세요."
+                  :rules="[rules.required, rules.kor]"
+                ></v-text-field>
+              </div>
+
+              <div class="profile_divider"></div>
+              <div class="profile_action">
+                <div class="profile_analysis">
+                  <v-icon color="#e9e9e9">mdi-magnify</v-icon>
+                  <span>분석하기</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -53,6 +86,15 @@ export default {
 
   data: () => ({
     timestamp: "",
+    open: false,
+    consonants: "",
+    rules: {
+      required: (value) => !!value || "최소 한 글자 이상 입력해주세요.",
+      kor: (value) => {
+        const pattern = /^[\u3131-\uD79D]+$/;
+        return pattern.test(value) || "한국어 입력만 가능합니다.";
+      },
+    },
   }),
 
   created() {
@@ -68,6 +110,15 @@ export default {
       }
       time += today.getMinutes();
       this.timestamp = time;
+    },
+    openSheet() {
+      this.open = true;
+      setTimeout(() => {
+        this.bgLoad = true;
+      }, 1000);
+    },
+    closeSheet() {
+      this.open = false;
     },
   },
 };
@@ -207,5 +258,80 @@ export default {
   align-items: center;
   font-size: 12px;
   color: #a9a9a9;
+}
+
+.sheet_profile {
+  position: absolute;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("assets/me_no_cat.jpg");
+  background-size: cover;
+  background-position: center center;
+  width: 223px;
+  height: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: -1px;
+  bottom: -1px;
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.activated {
+  height: 444px;
+  transition: 0.3s ease-in-out;
+}
+
+.profile_avatar {
+  margin-top: auto;
+  height: 60px;
+  width: 60px;
+  border-radius: 25px;
+  background: url("assets/cat.jpeg");
+  background-size: cover;
+  position: relative;
+}
+
+.profile_close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.profile_name {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+.profile_status {
+  font-size: 8px;
+  color: white;
+}
+
+.profile_divider {
+  margin-top: 15px;
+  height: 1px;
+  width: 100%;
+  background: #b9b9b9;
+}
+
+.profile_action {
+  width: 100%;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profile_analysis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #e9e9e9;
+  font-size: 10px;
 }
 </style>
