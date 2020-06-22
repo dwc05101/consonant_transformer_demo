@@ -99,7 +99,7 @@
               </div>
               <div class="chat_my_msg">
                 <div class="chat_meta">
-                  <div class="meta_pad" />
+                  <div class="meta_pad pad_16" v-bind:class="{ pad_31 : analysisDone}" />
                   <div class="read_number">{{analysisDone ? "" : "1"}}</div>
                   <div class="timestamp" v-bind:class="{ unread : !analysisDone}">{{analysisTime}}</div>
                 </div>
@@ -112,21 +112,21 @@
                   <div class="chat_cat_name">고양휘</div>
                 </div>
                 <div class="chat_cat_meta" v-if="current == 'first'">
-                  <div class="meta_pad" />
+                  <div class="meta_pad pad_39" />
                   <div class="timestamp">{{analysisTime}}</div>
                 </div>
               </div>
               <div class="chat_cat_msg" v-if="showSecond">
                 <div class="chat_cat_msg_bubble">{{analysisResult}}</div>
                 <div class="chat_cat_meta" v-if="current == 'second'">
-                  <div class="meta_pad" />
+                  <div class="meta_pad pad_14" />
                   <div class="timestamp">{{analysisTime}}</div>
                 </div>
               </div>
               <div class="chat_cat_msg" v-if="showThird">
                 <div class="chat_cat_msg_bubble">라는 뜻 이야!</div>
                 <div class="chat_cat_meta" v-if="current == 'third'">
-                  <div class="meta_pad" />
+                  <div class="meta_pad pad_14" />
                   <div class="timestamp">{{analysisTime}}</div>
                 </div>
               </div>
@@ -502,7 +502,6 @@ textarea {
 @media only screen and (max-width: 600px) {
   .viewport_wrapper {
     width: 100vw;
-    height: calc(100vh - calc(100vh - 100%));
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -648,9 +647,22 @@ textarea {
   }
 
   .meta_pad {
-    min-height: 14px;
     width: 100%;
-    height: 100%;
+  }
+  .pad_14 {
+    height: 14px;
+  }
+
+  .pad_16 {
+    height: 16px;
+  }
+
+  .pad_31 {
+    height: 31px;
+  }
+
+  .pad_39 {
+    height: 39px;
   }
 
   .timestamp {
@@ -659,6 +671,7 @@ textarea {
 
   .read_number {
     margin-left: auto;
+    margin-right: 5px;
     color: #fbe44c;
     font-weight: bold;
     margin-bottom: -2px;
