@@ -485,8 +485,7 @@ textarea {
 @media only screen and (max-width: 600px) {
   .viewport_wrapper {
     width: 100vw;
-    height: 100vh;
-    height: -webkit-fill-available;
+    height: calc(100vh - calc(100vh - 100%));
     display: flex;
     flex-direction: column;
     align-items: center;
