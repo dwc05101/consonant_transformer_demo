@@ -501,7 +501,8 @@ textarea {
 
 @media only screen and (max-width: 600px) {
   html {
-    overflow: hidden;
+    overflow: auto !important;
+    max-height: 100% !important;
   }
 
   .viewport_wrapper {
