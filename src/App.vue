@@ -500,6 +500,10 @@ textarea {
 }
 
 @media only screen and (max-width: 600px) {
+  html {
+    overflow: hidden;
+  }
+
   .viewport_wrapper {
     width: 100vw;
     display: flex;
@@ -667,6 +671,7 @@ textarea {
   }
 
   .timestamp {
+    font-size: 10px;
     color: #898989;
   }
 
@@ -674,6 +679,7 @@ textarea {
     text-align: end;
     color: #fbe44c;
     font-weight: bold;
+    font-size: 10px;
     margin-bottom: -2px;
     margin-right: 5px;
   }
