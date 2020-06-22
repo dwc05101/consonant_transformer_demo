@@ -507,6 +507,7 @@ textarea {
     align-items: center;
     background: none;
     z-index: -1;
+    overflow: hidden;
   }
 
   .mask_phone {
@@ -670,11 +671,11 @@ textarea {
   }
 
   .read_number {
-    margin-left: auto;
-    margin-right: 5px;
+    text-align: end;
     color: #fbe44c;
     font-weight: bold;
     margin-bottom: -2px;
+    margin-right: 5px;
   }
 
   .chat_my_msg_bubble {
@@ -683,7 +684,6 @@ textarea {
     padding: 8px;
     border-radius: 10px;
     position: relative;
-    margin-left: 5px;
     margin-right: 15px;
     font-size: 12px;
     margin-top: 10px;
