@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="app">
     <v-content>
       <div id="wrapper" class="viewport_wrapper">
         <!-- <div class="display-2">Guessing her mind</div> -->
@@ -185,6 +185,9 @@ export default {
       document
         .getElementById("wrapper")
         .setAttribute("style", "height:" + vH + "px;");
+      document
+        .getElementById("app")
+        .setAttribute("style", "height:" + vH + "px;");
     }
     calcVH();
     window.addEventListener("onorientationchange", calcVH, true);
@@ -282,7 +285,6 @@ textarea {
 
 .viewport_wrapper {
   width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -646,8 +648,9 @@ textarea {
   }
 
   .meta_pad {
+    min-height: 14px;
     width: 100%;
-    flex: 1;
+    height: 100%;
   }
 
   .timestamp {
