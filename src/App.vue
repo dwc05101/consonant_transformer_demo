@@ -19,7 +19,7 @@
                 {{"CS372 Team 11"}}
               </div>
               <div class="chat_header">
-                <div class="chat_header_name">고양휘</div>
+                <div class="chat_header_name">메가지니</div>
               </div>
               <div class="chat_my_msg" v-if="showAsk">
                 <div class="chat_meta">
@@ -30,7 +30,7 @@
                     v-if="!analysis || (analysis && (startTime !== analysisTime))"
                   >{{startTime}}</div>
                 </div>
-                <div class="chat_my_msg_bubble my_msg_first">양휘야, 혹시</div>
+                <div class="chat_my_msg_bubble my_msg_first">메가지니! 혹시</div>
               </div>
               <div class="chat_my_msg" v-if="showConsonants">
                 <div class="chat_meta">
@@ -43,8 +43,8 @@
               <div class="chat_cat_msg" v-if="showFirst">
                 <div class="chat_cat_avatar" />
                 <div class="chat_cat_msg_bubble cat_msg_first">
-                  아 그건 말야
-                  <div class="chat_cat_name">고양휘</div>
+                  네 주인님, 그건
+                  <div class="chat_cat_name">메가지니</div>
                 </div>
                 <div class="chat_cat_meta" v-if="current == 'first'">
                   <div class="meta_pad pad_39" />
@@ -59,7 +59,7 @@
                 </div>
               </div>
               <div class="chat_cat_msg" v-if="showThird">
-                <div class="chat_cat_msg_bubble">라는 뜻이야!</div>
+                <div class="chat_cat_msg_bubble">라는 의미 입니다.</div>
                 <div class="chat_cat_meta" v-if="current == 'third'">
                   <div class="meta_pad pad_14" />
                   <div class="timestamp">{{analysisTime}}</div>
@@ -332,10 +332,9 @@ textarea {
 
 .mask_phone {
   margin-left: auto;
-  margin-right: auto;
   margin-top: auto;
-  width: 850px;
-  height: 850px;
+  width: 880px;
+  height: 880px;
   background-image: url("assets/iphone_prortrait.png");
   background-size: contain;
   background-position: center center;
@@ -343,14 +342,14 @@ textarea {
 }
 
 .main_wrapper {
-  width: 315px;
-  height: 626px;
+  width: 326px;
+  height: 648px;
   display: flex;
   flex-direction: column;
   position: absolute;
   background: white;
-  bottom: 187px;
-  left: 220px;
+  bottom: 194px;
+  left: 228px;
   border-radius: 10px;
 }
 
@@ -494,7 +493,7 @@ textarea {
   height: 30px;
   width: 30px;
   border-radius: 12px;
-  background: url("assets/cat.jpeg");
+  background: url("assets/genie.jpg");
   background-size: cover;
 }
 
@@ -592,6 +591,10 @@ textarea {
 @media only screen and (max-width: 1500px) {
   .title_wrapper {
     display: none;
+  }
+
+  .mask_phone {
+    margin-right: auto;
   }
 }
 
