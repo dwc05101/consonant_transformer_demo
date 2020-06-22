@@ -46,6 +46,7 @@
                   maxlength="90"
                   placeholder="초성을 입력하세요."
                   :rules="[rules.required, rules.kor]"
+                  @blur="scrollToTop"
                 ></v-text-field>
               </div>
 
@@ -97,7 +98,7 @@
                 </v-btn>
                 <div class="chat_header_name">고양휘</div>
               </div>
-              <div class="chat_my_msg">
+              <div class="chat_my_msg" v-if="showAsk">
                 <div class="chat_meta">
                   <div class="meta_pad pad_16" v-bind:class="{ pad_31 : analysisDone}" />
                   <div class="read_number">{{analysisDone ? "" : "1"}}</div>
@@ -124,7 +125,7 @@
                 </div>
               </div>
               <div class="chat_cat_msg" v-if="showThird">
-                <div class="chat_cat_msg_bubble">라는 뜻 이야!</div>
+                <div class="chat_cat_msg_bubble">라는 뜻이야!</div>
                 <div class="chat_cat_meta" v-if="current == 'third'">
                   <div class="meta_pad pad_14" />
                   <div class="timestamp">{{analysisTime}}</div>
@@ -132,7 +133,7 @@
               </div>
               <v-fab-transition>
                 <div class="chat_footer" v-if="showThird">
-                  도움 됐길 바라요!
+                  도움이 되었길 바라요!
                   <v-btn class="mt-2" color="white" @click="closeAnalysis">돌아가기</v-btn>
                 </div>
               </v-fab-transition>
@@ -166,6 +167,7 @@ export default {
     analysisTime: null,
     analysisResult: null,
     analysisDone: false,
+    showAsk: false,
     showFirst: false,
     showSecond: false,
     showThird: false,
@@ -219,6 +221,9 @@ export default {
     insertSample() {
       this.consonants = this.sample;
     },
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
@@ -243,6 +248,9 @@ export default {
       this.analysisTime = time;
       this.analysis = true;
 
+      await this.sleep(1000);
+      this.showAsk = true;
+
       //API call
       await this.sleep(2000);
 
@@ -264,6 +272,7 @@ export default {
       this.open = false;
       this.analysisTime = null;
       this.consonants = null;
+      this.showAsk = false;
       this.showFirst = false;
       this.showSecond = false;
       this.showThird = false;
@@ -501,8 +510,8 @@ textarea {
 
 @media only screen and (max-width: 600px) {
   html {
-    overflow: auto !important;
-    max-height: 100% !important;
+    overflow: hidden;
+    scroll-behavior: smooth;
   }
 
   .viewport_wrapper {
