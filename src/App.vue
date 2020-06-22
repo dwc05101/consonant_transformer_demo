@@ -257,6 +257,13 @@ export default {
 </script>
 
 <style>
+/* Prevent zoom */
+select,
+input,
+textarea {
+  font-size: 16px;
+}
+
 .viewport_wrapper {
   width: 100vw;
   height: 100vh;
@@ -346,7 +353,7 @@ export default {
 .friends_header {
   padding: 10px 15px;
   color: #898989;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .friend_profile {
@@ -479,6 +486,7 @@ export default {
   .viewport_wrapper {
     width: 100vw;
     height: 100vh;
+    height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -617,23 +625,21 @@ export default {
 
   .chat_meta {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    width: 25px;
     font-size: 8px;
+    position: relative;
   }
 
   .timestamp {
-    margin-top: auto;
+    position: absolute;
+    bottom: 0;
     color: #898989;
   }
 
-  .unread {
-    margin-top: 0;
-  }
-
   .read_number {
-    margin-top: auto;
+    position: absolute;
+    bottom: 15px;
+    right: 0px;
     color: #fbe44c;
     font-weight: bold;
     margin-bottom: -2px;
@@ -673,9 +679,8 @@ export default {
 
   .chat_cat_meta {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    width: 25px;
+    position: relative;
     font-size: 8px;
     margin-left: 5px;
   }
