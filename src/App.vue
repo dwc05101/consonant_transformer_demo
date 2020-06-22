@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <div class="viewport_wrapper">
+      <div id="wrapper" class="viewport_wrapper">
         <!-- <div class="display-2">Guessing her mind</div> -->
 
         <div class="mask_phone">
@@ -99,6 +99,7 @@
               </div>
               <div class="chat_my_msg">
                 <div class="chat_meta">
+                  <div class="meta_pad" />
                   <div class="read_number">{{analysisDone ? "" : "1"}}</div>
                   <div class="timestamp" v-bind:class="{ unread : !analysisDone}">{{analysisTime}}</div>
                 </div>
@@ -111,18 +112,21 @@
                   <div class="chat_cat_name">고양휘</div>
                 </div>
                 <div class="chat_cat_meta" v-if="current == 'first'">
+                  <div class="meta_pad" />
                   <div class="timestamp">{{analysisTime}}</div>
                 </div>
               </div>
               <div class="chat_cat_msg" v-if="showSecond">
                 <div class="chat_cat_msg_bubble">{{analysisResult}}</div>
                 <div class="chat_cat_meta" v-if="current == 'second'">
+                  <div class="meta_pad" />
                   <div class="timestamp">{{analysisTime}}</div>
                 </div>
               </div>
               <div class="chat_cat_msg" v-if="showThird">
                 <div class="chat_cat_msg_bubble">라는 뜻 이야!</div>
                 <div class="chat_cat_meta" v-if="current == 'third'">
+                  <div class="meta_pad" />
                   <div class="timestamp">{{analysisTime}}</div>
                 </div>
               </div>
@@ -170,9 +174,21 @@ export default {
 
   created() {
     setInterval(this.getNow, 1000);
-    let vh = window.innerHeight * 0.01;
-    // Then we set the value in the --vh custom property to the root of the document
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  },
+
+  mounted() {
+    function calcVH() {
+      var vH = Math.max(
+        document.documentElement.clientHeight,
+        window.innerHeight || 0
+      );
+      document
+        .getElementById("wrapper")
+        .setAttribute("style", "height:" + vH + "px;");
+    }
+    calcVH();
+    window.addEventListener("onorientationchange", calcVH, true);
+    window.addEventListener("resize", calcVH, true);
   },
 
   methods: {
@@ -267,7 +283,6 @@ textarea {
 .viewport_wrapper {
   width: 100vw;
   height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -623,22 +638,24 @@ textarea {
   }
 
   .chat_meta {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     width: 25px;
     font-size: 8px;
-    position: relative;
+  }
+
+  .meta_pad {
+    width: 100%;
+    flex: 1;
   }
 
   .timestamp {
-    position: absolute;
-    bottom: 0;
     color: #898989;
   }
 
   .read_number {
-    position: absolute;
-    bottom: 15px;
-    right: 0px;
+    margin-left: auto;
     color: #fbe44c;
     font-weight: bold;
     margin-bottom: -2px;
@@ -677,9 +694,10 @@ textarea {
   }
 
   .chat_cat_meta {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     width: 25px;
-    position: relative;
     font-size: 8px;
     margin-left: 5px;
   }
