@@ -68,14 +68,14 @@
 
               <div class="chat_footer">
                 <div class="chat_footer_toolbar">
-                  <v-btn text color="#898989" :disabled="analysis" @click="showGuide">
+                  <v-btn text color="black" :disabled="analysis" @click="showGuide">
                     <v-icon left>mdi-file-document-outline</v-icon>가이드
                   </v-btn>
-                  <v-btn text color="#898989" :disabled="analysis" @click="insertSample">
+                  <v-btn text color="black" :disabled="analysis" @click="insertSample">
                     <v-icon left>mdi-lightbulb</v-icon>예시입력
                   </v-btn>
                   <v-spacer />
-                  <v-btn text color="#898989" @click="closeAnalysis">
+                  <v-btn text color="black" :disabled="!analysisDone" @click="closeAnalysis">
                     <v-icon left>mdi-restore</v-icon>다시하기
                   </v-btn>
                 </div>
@@ -113,7 +113,7 @@
                     <p>-유의 사항-</p>
 
                     <li>입력 가능한 문자는 한국어 초성, 한국어 글자, 공백 및 특수기호 입니다.</li>
-                    <li>입력 가능한 특수기호 : !@#$%^&*)(+=._-</li>
+                    <li>입력 가능한 특수기호 : .,!?</li>
                     <li>영어는 입력할 수 없습니다.</li>
                   </v-card-text>
 
@@ -142,7 +142,7 @@ export default {
         return false;
       }
 
-      const pattern = /^[\u3131-\uD79D0-9!@#$%^&*)(+=._-\s]+$/;
+      const pattern = /^[\u3131-\uD79D0-9.,!?\s]+$/;
       if (!pattern.test(this.consonants)) {
         return false;
       }
@@ -158,7 +158,7 @@ export default {
     rules: {
       required: value => !!value || "최소 한 글자 이상 입력해주세요.",
       kor: value => {
-        const pattern = /^[\u3131-\uD79D0-9!@#$%^&*)(+=._-\s]+$/;
+        const pattern = /^[\u3131-\uD79D0-9.,!?\s]+$/;
         return pattern.test(value) || "허용되지 않는 입력 값입니다.";
       }
     },
@@ -765,7 +765,7 @@ textarea {
     height: 30px;
     width: 30px;
     border-radius: 12px;
-    background: url("assets/cat.jpeg");
+    background: url("assets/genie.jpg");
     background-size: cover;
   }
 
