@@ -23,7 +23,10 @@
               </div>
               <div class="chat_my_msg" v-if="showAsk">
                 <div class="chat_meta">
-                  <div class="meta_pad pad_16" v-bind:class="{ pad_31 : analysis}" />
+                  <div
+                    class="meta_pad pad_16"
+                    v-bind:class="{ pad_31 :analysisDone || analysis && (startTime === analysisTime)}"
+                  />
                   <div class="read_number">{{analysisDone ? "" : "1"}}</div>
                   <div
                     class="timestamp"
@@ -75,7 +78,7 @@
                     <v-icon left>mdi-lightbulb</v-icon>예시입력
                   </v-btn>
                   <v-spacer />
-                  <v-btn text color="black" :disabled="!analysisDone" @click="closeAnalysis">
+                  <v-btn text color="black" :disabled="!showThird" @click="closeAnalysis">
                     <v-icon left>mdi-restore</v-icon>다시하기
                   </v-btn>
                 </div>
@@ -633,231 +636,6 @@ textarea {
     background: white;
     bottom: 0;
     left: 0;
-  }
-  .analysis_chat {
-    position: absolute;
-    background: rgb(193, 208, 219);
-    width: 0;
-    height: 100%;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: 0.3s ease-in-out;
-  }
-
-  .opened {
-    width: 100%;
-    transition: 0.3s ease-in-out;
-  }
-
-  .chat_header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  .chat_header_name {
-    height: 100%;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-  }
-
-  .chat_my_msg {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .chat_meta {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 25px;
-    font-size: 8px;
-  }
-
-  .meta_pad {
-    width: 100%;
-  }
-  .pad_14 {
-    height: 14px;
-  }
-
-  .pad_16 {
-    height: 16px;
-  }
-
-  .pad_31 {
-    height: 31px;
-  }
-
-  .pad_39 {
-    height: 39px;
-  }
-
-  .timestamp {
-    font-size: 10px;
-    color: #898989;
-  }
-
-  .read_number {
-    text-align: end;
-    color: #fbe44c;
-    font-weight: bold;
-    font-size: 10px;
-    margin-bottom: -2px;
-    margin-right: 5px;
-  }
-
-  .chat_my_msg_bubble {
-    background: #fbe44c;
-    max-width: 70%;
-    padding: 8px;
-    border-radius: 10px;
-    position: relative;
-    margin-right: 15px;
-    font-size: 12px;
-    margin-top: 10px;
-  }
-  .my_msg_first:after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 10%;
-    width: 0;
-    height: 0;
-    border: 10px solid transparent;
-    border-left-color: #fbe44c;
-    border-right: 0;
-    border-top: 0;
-    margin-right: -5px;
-  }
-
-  .chat_cat_msg {
-    width: 100%;
-    display: flex;
-    padding-left: 10px;
-    margin-top: 10px;
-  }
-
-  .chat_cat_meta {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 25px;
-    font-size: 8px;
-    margin-left: 5px;
-  }
-
-  .chat_cat_name {
-    position: absolute;
-    top: -20px;
-    left: 0;
-    color: #898989;
-    font-size: 12px;
-  }
-
-  .chat_cat_avatar {
-    height: 30px;
-    width: 30px;
-    border-radius: 12px;
-    background: url("assets/genie.jpg");
-    background-size: cover;
-  }
-
-  .chat_cat_msg_bubble {
-    background: white;
-    max-width: 70%;
-    padding: 8px;
-    border-radius: 10px;
-    position: relative;
-    margin-left: 45px;
-    font-size: 12px;
-    margin-top: -5px;
-  }
-
-  .cat_msg_first {
-    margin-top: 20px;
-    margin-left: 15px;
-  }
-
-  .cat_msg_first:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 10%;
-    width: 0;
-    height: 0;
-    border: 10px solid transparent;
-    border-right-color: white;
-    border-left: 0;
-    border-top: 0;
-    margin-left: -5px;
-  }
-
-  .chat_footer {
-    width: 100%;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    margin-top: auto;
-    font-size: 14px;
-    color: #898989;
-  }
-
-  .chat_footer_toolbar {
-    width: 100%;
-    padding: 5px;
-    display: flex;
-    background: #f9f9f9;
-    border: 1px solid #d9d9d9;
-    border-bottom: 0;
-  }
-
-  .chat_footer_input {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    border: 1px solid #d9d9d9;
-    border-collapse: collapse;
-  }
-
-  .chat_footer_text {
-    height: 80px;
-    flex: 1;
-    display: flex;
-    padding: 10px;
-    padding-top: 0px;
-  }
-
-  .chat_footer_action {
-    width: 90px;
-    height: 100%;
-    display: flex;
-    padding: 10px;
-  }
-
-  .chat_footer_button {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #d9d9d9;
-    border-radius: 5px;
-    background: #f9f9f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #a9a9a9;
-  }
-
-  .button_activated {
-    border: 1px solid #fbe44c;
-    background: #fbe44c;
-    color: black;
-    cursor: pointer;
   }
 }
 </style>
