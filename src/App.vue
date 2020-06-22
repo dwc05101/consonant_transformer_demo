@@ -194,6 +194,7 @@ export default {
     calcVH();
     window.addEventListener("onorientationchange", calcVH, true);
     window.addEventListener("resize", calcVH, true);
+    this.scrollToTop();
   },
 
   methods: {
