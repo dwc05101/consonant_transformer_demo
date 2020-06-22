@@ -100,7 +100,7 @@
               <div class="chat_my_msg">
                 <div class="chat_meta">
                   <div class="read_number">{{analysisDone ? "" : "1"}}</div>
-                  <div class="timestamp">{{analysisTime}}</div>
+                  <div class="timestamp" v-bind:class="{ unread : !analysisDone}">{{analysisTime}}</div>
                 </div>
                 <div class="chat_my_msg_bubble my_msg_first">양휘야, 혹시 {{ consonants }} 가 무슨 의미야?</div>
               </div>
@@ -170,6 +170,9 @@ export default {
 
   created() {
     setInterval(this.getNow, 1000);
+    let vh = window.innerHeight * 0.01;
+    // Then we set the value in the --vh custom property to the root of the document
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
   },
 
   methods: {
@@ -246,6 +249,7 @@ export default {
       this.showSecond = false;
       this.showThird = false;
       this.current = null;
+      this.analysisDone = false;
       this.analysisResult = null;
     }
   }
@@ -256,6 +260,7 @@ export default {
 .viewport_wrapper {
   width: 100vw;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -341,7 +346,7 @@ export default {
 .friends_header {
   padding: 10px 15px;
   color: #898989;
-  font-size: 5px;
+  font-size: 8px;
 }
 
 .friend_profile {
@@ -374,7 +379,7 @@ export default {
 }
 
 .friend_status {
-  font-size: 8px;
+  font-size: 10px;
   color: #a9a9a9;
 }
 
@@ -614,16 +619,21 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     align-items: flex-end;
     font-size: 8px;
   }
 
   .timestamp {
+    margin-top: auto;
     color: #898989;
   }
 
+  .unread {
+    margin-top: 0;
+  }
+
   .read_number {
+    margin-top: auto;
     color: #fbe44c;
     font-weight: bold;
     margin-bottom: -2px;
@@ -665,7 +675,6 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     align-items: flex-start;
     font-size: 8px;
     margin-left: 5px;
