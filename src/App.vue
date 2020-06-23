@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <v-content>
+    <v-main>
       <div id="wrapper" class="viewport_wrapper">
         <!-- <div class="display-2">Guessing her mind</div> -->
         <div class="title_wrapper">
@@ -111,7 +111,7 @@
 
                   <v-card-text>
                     <p>입력 란에 분석하고 싶은 초성을 입력하세요!</p>
-                    <p>ex ) 내가 너 많이 좋아해! -> ㄴㄱ ㄴ ㅁㅇ ㅈㅇㅎ!</p>
+                    <p>ex ) 내가 너 제일 좋아해! -> ㄴㄱ ㄴ ㅈㅇ ㅈㅇㅎ!</p>
                     <br />
                     <p>-유의 사항-</p>
 
@@ -132,11 +132,13 @@
           </div>
         </div>
       </div>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "App",
   computed: {
@@ -166,7 +168,7 @@ export default {
       }
     },
     guide: false,
-    sample: "ㄴㄱ ㄴ ㅁㅇ ㅈㅎㅇ!",
+    sample: "ㄴㄱ ㄴ ㅈㅇ ㅈㅎㅇ!",
     analysis: false,
     startTime: null,
     analysisTime: null,
@@ -248,21 +250,32 @@ export default {
       this.analysis = true;
       this.showConsonants = true;
 
-      //API call
-      await this.sleep(2000);
+      const url =
+        "http://ec2-13-124-68-75.ap-northeast-2.compute.amazonaws.com:8080/predictions/medium_consonant";
+      const data = {
+        text: this.consonants
+      };
+      try {
+        const response = await axios.post(url, data);
+        const output = response.data.predict;
 
-      this.analysisResult = "내가 너 많이 좋아해!";
-      this.analysisDone = true;
+        this.analysisResult = output;
+        this.analysisDone = true;
 
-      await this.sleep(1500);
-      this.current = "first";
-      this.showFirst = true;
-      await this.sleep(1500);
-      this.current = "second";
-      this.showSecond = true;
-      await this.sleep(1500);
-      this.current = "third";
-      this.showThird = true;
+        await this.sleep(1500);
+        this.current = "first";
+        this.showFirst = true;
+        await this.sleep(1500);
+        this.current = "second";
+        this.showSecond = true;
+        await this.sleep(1500);
+        this.current = "third";
+        this.showThird = true;
+      } catch (err) {
+        alert(err);
+        this.closeAnalysis();
+        return;
+      }
     },
     closeAnalysis() {
       this.startTime = null;
@@ -409,6 +422,7 @@ textarea {
   height: 100%;
   width: 25px;
   font-size: 8px;
+  margin-right: 5px;
 }
 
 .meta_pad {
@@ -441,7 +455,6 @@ textarea {
   font-weight: bold;
   font-size: 10px;
   margin-bottom: -2px;
-  margin-right: 5px;
 }
 
 .chat_my_msg_bubble {
@@ -454,6 +467,7 @@ textarea {
   font-size: 12px;
   margin-top: 10px;
 }
+
 .my_msg_first:after {
   content: "";
   position: absolute;
