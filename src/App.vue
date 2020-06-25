@@ -251,12 +251,16 @@ export default {
       this.showConsonants = true;
 
       const url =
-        "http://ec2-13-124-68-75.ap-northeast-2.compute.amazonaws.com:8080/predictions/medium_consonant";
+        "https://consonant-heartcored98.endpoint.ainize.ai/predictions/medium_consonant";
       const data = {
         text: this.consonants
       };
       try {
-        const response = await axios.post(url, data);
+        const response = await axios.post(url, data, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
         const output = response.data.predict;
 
         this.analysisResult = output;
