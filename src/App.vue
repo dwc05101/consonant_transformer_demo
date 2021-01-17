@@ -251,7 +251,7 @@ export default {
       this.showConsonants = true;
 
       const url =
-        "https://consonant-heartcored98.endpoint.ainize.ai/predictions/medium_consonant";
+        "http://label.doctor-cha.com/consonant/predictions/medium_consonant";
       const data = {
         text: this.consonants
       };
