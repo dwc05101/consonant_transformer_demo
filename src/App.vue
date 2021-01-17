@@ -251,7 +251,7 @@ export default {
       this.showConsonants = true;
 
       const url =
-        "https://consonant-heartcored98.endpoint.ainize.ai/predictions/medium_consonant";
+        "https://master-consonant-transformer-heartcored98.endpoint.ainize.ai/predictions/medium_consonant";
       const data = {
         text: this.consonants
       };
